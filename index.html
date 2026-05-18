@@ -16,40 +16,42 @@
 <body>
     <div class="page-shell">
         <header class="hero section">
-            <p class="eyebrow">ICLR 2025</p>
             <h1>Mutual Effort for Efficiency: A Similarity-Based Token Pruning for Vision Transformers in Self-Supervised Learning</h1>
-            <p class="hero-copy">
-                SimPrune reduces the training cost of discriminative self-supervised ViTs by pruning token pairs
-                through cross-branch similarity, preserving semantic consistency between augmented views.
-            </p>
+            <div class="paper-badges">
+                <span class="paper-badge">ICLR 2025</span>
+            </div>
 
             <div class="hero-actions">
-                <a class="button button-primary" href="8142_Mutual_Effort_for_Efficie.pdf">Paper PDF</a>
-                <a class="button button-secondary" href="#method">Method</a>
-                <a class="button button-secondary" href="#results">Results</a>
+                <a class="button button-primary" href="https://openreview.net/pdf?id=GTcEe5fayC">Paper</a>
             </div>
 
             <div class="authors">
-                <span>Sheng Li<sup>1,*</sup></span>
-                <span>Qitao Tan<sup>2,*</sup></span>
-                <span>Yue Dai<sup>1</sup></span>
-                <span>Zhenglun Kong<sup>3</sup></span>
-                <span>Tianyu Wang<sup>1</sup></span>
-                <span>Jun Liu<sup>4</sup></span>
-                <span>Ao Li<sup>5</sup></span>
-                <span>Ninghao Liu<sup>2</sup></span>
-                <span>Yufei Ding<sup>6</sup></span>
-                <span>Xulong Tang<sup>1</sup></span>
-                <span>Geng Yuan<sup>2</sup></span>
+                <div class="author-row">
+                    <span>Sheng Li<sup>1,*</sup></span>
+                    <span>Qitao Tan<sup>2,*</sup></span>
+                    <span>Yue Dai<sup>1</sup></span>
+                    <span>Zhenglun Kong<sup>3</sup></span>
+                    <span>Tianyu Wang<sup>1</sup></span>
+                    <span>Jun Liu<sup>4</sup></span>
+                    <span>Ao Li<sup>5</sup></span>
+                    <span>Ninghao Liu<sup>2</sup></span>
+                    <span>Yufei Ding<sup>6</sup></span>
+                    <span>Xulong Tang<sup>1</sup></span>
+                    <span>Geng Yuan<sup>2</sup></span>
+                </div>
             </div>
 
             <div class="affiliations">
-                <span><sup>1</sup> University of Pittsburgh</span>
-                <span><sup>2</sup> University of Georgia</span>
-                <span><sup>3</sup> Harvard University</span>
-                <span><sup>4</sup> Northeastern University</span>
-                <span><sup>5</sup> University of Arizona</span>
-                <span><sup>6</sup> University of California, San Diego</span>
+                <div class="affiliation-row">
+                    <span><sup>1</sup> University of Pittsburgh</span>
+                    <span><sup>2</sup> University of Georgia</span>
+                    <span><sup>3</sup> Harvard University</span>
+                </div>
+                <div class="affiliation-row">
+                    <span><sup>4</sup> Northeastern University</span>
+                    <span><sup>5</sup> University of Arizona</span>
+                    <span><sup>6</sup> University of California, San Diego</span>
+                </div>
             </div>
 
             <p class="footnote">* Equal contribution.</p>
@@ -61,40 +63,63 @@
                     <h2>Abstract</h2>
                 </div>
                 <p class="body-copy">
-                    Self-supervised learning reduces dependence on labeled data, but training Vision Transformers
-                    under discriminative SSL remains expensive because two augmented views are processed through
-                    dual encoders. Existing token pruning methods were mostly designed for supervised, single-branch
-                    training and ignore the cross-branch similarity that SSL depends on. We propose
-                    <strong>SimPrune</strong>, a token pruning strategy that pairs tokens across the online and target
-                    branches using cosine similarity, then prunes at the token-pair level to maintain semantic
-                    consistency. A difficulty-aware sliding-window schedule further controls which similarity levels
-                    are retained during training. SimPrune cuts SSL training computation substantially while preserving
-                    accuracy, achieving 24% training FLOPs savings without sacrificing accuracy.
+                    Self-supervised learning (SSL) offers a compelling solution to the challenge of extensive labeled 
+                    data requirements in traditional supervised learning. With the proven success of 
+                    Vision Transformers (ViTs) in supervised tasks, there is increasing interest in adapting them for 
+                    SSL frameworks. However, the high computational demands of SSL pose substantial challenges, 
+                    particularly on resource-limited platforms like edge devices, despite its ability to 
+                    achieve high accuracy without labeled data. Recent studies in supervised learning have shown that 
+                    token pruning can reduce training costs by removing less informative tokens without 
+                    compromising accuracy. However, SSL’s dual-branch encoders make traditional single-branch 
+                    pruning strategies less effective, as they fail to account for the critical cross-branch 
+                    similarity information, leading to reduced accuracy in SSL. To this end, 
+                    we introduce <strong>SimPrune</strong>, 
+                    a novel token pruning strategy designed for ViTs in SSL. SimPrune leverages <strong>cross-branch 
+                    similarity information</strong> to efficiently prune tokens, retaining essential semantic information 
+                    across dual branches. Additionally, we incorporate a <strong>difficulty-aware pruning strategy</strong>
+                    to further enhance SimPrune's effectiveness. Experimental results show that our proposed approach 
+                    effectively reduces training computation while maintaining accuracy. Specifically, our approach 
+                    offers 24% savings in training costs compared to SSL baseline, without sacrificing accuracy.
+
                 </p>
+            </section>
+
+            <section class="section" id="background">
+                <div class="section-heading">
+                    <h2>Background: Discriminative SSL</h2>
+                    <!-- <p class="section-note">
+                        Discriminative self-supervised learning trains a model by aligning representations from two
+                        different augmented views of the same image.
+                    </p> -->
+                </div>
+
+                <div class="background-layout">
+                    <div class="subsection-copy">
+                        <p>
+                            Discriminative self-supervised learning trains a model by aligning representations from two
+                        different augmented views of the same image.
+                        </p>
+                        <p>
+                            A typical SSL framework uses an online branch and a target branch. The online branch is
+                            optimized by back-propagation, while the target branch is updated by Momemtum-based 
+                            method or even not trained.
+                        </p>
+                        <p>
+                            This dual-branch structure is the key difference from supervised learning.
+                        </p>
+                    </div>
+                    <figure class="paper-figure paper-figure-background">
+                        <img src="data/paper_assets/SSL.png?v=20260518a" alt="Discriminative self-supervised learning with online and target encoder branches.">
+                    </figure>
+                </div>
             </section>
 
             <section class="section" id="motivation">
                 <div class="section-heading">
                     <h2>Why SSL Needs Cross-Branch Pruning</h2>
                     <p class="section-note">
-                        Discriminative SSL trains on paired augmented views. Pruning each branch independently can
-                        remove semantically corresponding tokens asymmetrically and weaken the alignment objective.
+                        We first test whether a representative single-branch, attention-based token pruning method is effective for discriminative self-supervised learning.
                     </p>
-                </div>
-
-                <div class="metric-grid">
-                    <article class="metric-card">
-                        <span class="metric-value">2 branches</span>
-                        <p>Online/student and target/teacher encoders process different views of the same image.</p>
-                    </article>
-                    <article class="metric-card">
-                        <span class="metric-value">-2.48%</span>
-                        <p>Accuracy drop from applying attention-based pruning to DINO at keep rate 0.8 in the preliminary study.</p>
-                    </article>
-                    <article class="metric-card">
-                        <span class="metric-value">57.20%</span>
-                        <p>Sliding-window SimPrune recovers the baseline-level SSL accuracy in the preliminary setting.</p>
-                    </article>
                 </div>
 
                 <div class="results-table-wrap compact-table">
@@ -104,40 +129,59 @@
                                 <th>Method</th>
                                 <th>Training FLOPs</th>
                                 <th>SSL Accuracy</th>
-                                <th>Observation</th>
+                                <th>SSL Drop</th>
+                                <th>Supervised Drop</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="baseline-row">
                                 <td>DINO baseline</td>
                                 <td>100%</td>
-                                <td>57.16 +/- 0.22</td>
-                                <td>No token pruning</td>
+                                <td>57.16</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Attention-based pruning, kr = 0.9</td>
+                                <td>87%</td>
+                                <td>56.65</td>
+                                <td>-0.51</td>
+                                <td>-0.10</td>
                             </tr>
                             <tr>
                                 <td>Attention-based pruning, kr = 0.8</td>
                                 <td>76%</td>
-                                <td>54.68 +/- 0.30</td>
-                                <td>Single-branch token importance hurts SSL alignment</td>
-                            </tr>
-                            <tr class="ours-row">
-                                <td>SimPrune sliding window, kr = 0.8</td>
-                                <td>76%</td>
-                                <td>57.20 +/- 0.28</td>
-                                <td>Cross-branch token pairs preserve semantic consistency</td>
+                                <td>54.68</td>
+                                <td>-2.48</td>
+                                <td>-0.21</td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <div class="highlight-callout">
+                    <strong>Observation</strong>
+                    <span>Attention-based pruning transfers poorly to SSL: at 76% training FLOPs, the SSL accuracy drop is 2.48%, far larger than the 0.21% drop in supervised learning.</span>
+                </div>
+
+                <div class="reason-card reason-card-single">
+                    <h3>Reason</h3>
+                    <p>
+                        Supervised learning uses a single image stream and explicit labels, so token importance can be
+                        estimated within one branch. Discriminative SSL instead aligns two augmented views through
+                        online and target branches. If pruning is done independently in each branch, corresponding
+                        semantic regions can be removed unevenly, weakening the SSL alignment objective.
+                    </p>
                 </div>
             </section>
 
             <section class="section" id="method">
                 <div class="section-heading">
-                    <h2>SimPrune Method</h2>
-                    <p class="section-note">
+                    <h2>Design</h2>
+                    <!-- <p class="section-note">
                         SimPrune is inserted into selected Transformer blocks, such as the 4th, 7th, and 10th blocks,
                         and works directly with standard SSL dual-branch training.
-                    </p>
+                    </p> -->
                 </div>
 
                 <div class="subsection-block">
@@ -146,13 +190,20 @@
                     </div>
                     <div class="subsection-layout">
                         <div class="subsection-copy">
-                            <ol class="workflow-list">
-                                <li><strong>Process two augmented views.</strong> The online and target branches each receive a transformed view of the same image.</li>
-                                <li><strong>Insert SimPrune after attention.</strong> SimPrune prunes the token sequence before the MLP, reducing the cost of later computation.</li>
-                                <li><strong>Keep branch consistency.</strong> The pruning operation uses information from both branches instead of evaluating each branch alone.</li>
-                            </ol>
+                            <p>
+                                SimPrune is placed inside the Transformer block after the attention module and before
+                                the MLP. 
+                            </p>
+                            <p>
+                                SimPrune is inserted into selected Transformer blocks, such as the 4th, 7th, and 10th blocks,
+                        and works directly with standard SSL dual-branch training.
+                            </p>
+                            <p>
+                            The online and target SSL branches keep the same backbone structure, while
+                                SimPrune reduces the token sequence that later layers need to process.
+                            </p>
                         </div>
-                        <figure class="paper-figure paper-figure-aside">
+                        <figure class="paper-figure paper-figure-small">
                             <img src="data/paper_assets/structure.png?v=20260517a" alt="SimPrune inserted into Transformer blocks in the online and target SSL branches.">
                         </figure>
                     </div>
@@ -187,25 +238,20 @@
                             </li>
                         </ol>
                     </div>
-                    <figure class="paper-figure paper-figure-wide">
+                    <figure class="paper-figure paper-figure-medium">
                         <img src="data/paper_assets/process.png?v=20260517a" alt="Token matching, sorting, and pair-wise pruning process of SimPrune.">
                     </figure>
-                </div>
-
-                <div class="subsection-block">
-                    <div class="subsection-heading">
-                        <h3>Difficulty-Aware Sliding Window</h3>
-                    </div>
-                    <div class="subsection-layout">
+                    <div class="subsection-inner">
+                        <h4>Difficulty-Aware Sliding Window</h4>
                         <div class="subsection-copy">
                             <p>
-                                Early SSL training benefits from easier alignment, so SimPrune initially retains token
+                                Early SSL training benefits from easier training, so SimPrune initially retains token
                                 pairs with higher similarity and prunes more dissimilar pairs. As training progresses,
                                 the retained window shifts toward lower-similarity pairs, gradually increasing the task
                                 difficulty and encouraging stronger representations.
                             </p>
                         </div>
-                        <figure class="paper-figure paper-figure-aside">
+                        <figure class="paper-figure paper-figure-medium">
                             <img src="data/paper_assets/window.png?v=20260517a" alt="Difficulty-aware sliding window that shifts over token-pair similarity during training.">
                         </figure>
                     </div>
@@ -234,65 +280,77 @@
                         </thead>
                         <tbody>
                             <tr class="baseline-row">
-                                <td>DeiT-T</td>
+                                <td class="encoder-cell" rowspan="4">DeiT-T</td>
                                 <td>DINO</td>
-                                <td>55.71 +/- 0.23</td>
+                                <td>55.71</td>
                                 <td>100%</td>
                                 <td>100%</td>
                             </tr>
                             <tr>
-                                <td>DeiT-T</td>
-                                <td>EViT / ToMe</td>
-                                <td>53.13 / 53.65</td>
+                                <td>EViT</td>
+                                <td>53.13</td>
                                 <td>76%</td>
-                                <td>88% / 86%</td>
+                                <td>88%</td>
+                            </tr>
+                            <tr>
+                                <td>ToMe</td>
+                                <td>53.65</td>
+                                <td>76%</td>
+                                <td>86%</td>
                             </tr>
                             <tr class="ours-row">
-                                <td>DeiT-T</td>
-                                <td>SimPrune</td>
-                                <td>55.66 +/- 0.30</td>
+                                <td>SimPrune (Ours)</td>
+                                <td>55.66</td>
                                 <td>76%</td>
                                 <td>86%</td>
                             </tr>
                             <tr class="baseline-row">
-                                <td>DeiT-S</td>
+                                <td class="encoder-cell" rowspan="4">DeiT-S</td>
                                 <td>DINO</td>
-                                <td>62.49 +/- 0.21</td>
+                                <td>62.49</td>
                                 <td>100%</td>
                                 <td>100%</td>
                             </tr>
                             <tr>
-                                <td>DeiT-S</td>
-                                <td>EViT / ToMe</td>
-                                <td>60.06 / 60.34</td>
+                                <td>EViT</td>
+                                <td>60.06</td>
                                 <td>76%</td>
-                                <td>87% / 87%</td>
+                                <td>87%</td>
+                            </tr>
+                            <tr>
+                                <td>ToMe</td>
+                                <td>60.34</td>
+                                <td>76%</td>
+                                <td>87%</td>
                             </tr>
                             <tr class="ours-row">
-                                <td>DeiT-S</td>
-                                <td>SimPrune</td>
-                                <td>62.31 +/- 0.11</td>
+                                <td>SimPrune (Ours)</td>
+                                <td>62.31</td>
                                 <td>76%</td>
                                 <td>85%</td>
                             </tr>
                             <tr class="baseline-row">
-                                <td>DeiT-B</td>
+                                <td class="encoder-cell" rowspan="4">DeiT-B</td>
                                 <td>DINO</td>
-                                <td>64.56 +/- 0.15</td>
+                                <td>64.56</td>
                                 <td>100%</td>
                                 <td>100%</td>
                             </tr>
                             <tr>
-                                <td>DeiT-B</td>
-                                <td>EViT / ToMe</td>
-                                <td>62.27 / 61.58</td>
+                                <td>EViT</td>
+                                <td>62.27</td>
                                 <td>76%</td>
-                                <td>89% / 88%</td>
+                                <td>89%</td>
+                            </tr>
+                            <tr>
+                                <td>ToMe</td>
+                                <td>61.58</td>
+                                <td>76%</td>
+                                <td>88%</td>
                             </tr>
                             <tr class="ours-row">
-                                <td>DeiT-B</td>
-                                <td>SimPrune</td>
-                                <td>64.21 +/- 0.27</td>
+                                <td>SimPrune (Ours)</td>
+                                <td>64.21</td>
                                 <td>76%</td>
                                 <td>89%</td>
                             </tr>
@@ -319,8 +377,8 @@
                             <thead>
                                 <tr>
                                     <th>Method</th>
-                                    <th>Cars Acc.</th>
-                                    <th>Aircraft Acc.</th>
+                                    <th>Stanford Cars<br><span class="metric-label">Accuracy</span></th>
+                                    <th>FGVC Aircraft<br><span class="metric-label">Accuracy</span></th>
                                     <th>FLOPs</th>
                                 </tr>
                             </thead>
@@ -344,7 +402,7 @@
                                     <td>76%</td>
                                 </tr>
                                 <tr class="ours-row">
-                                    <td>SimPrune</td>
+                                    <td>SimPrune (Ours)</td>
                                     <td>52.61</td>
                                     <td>55.48</td>
                                     <td>76%</td>
@@ -359,8 +417,8 @@
                             <thead>
                                 <tr>
                                     <th>Method</th>
-                                    <th>COCO APb</th>
-                                    <th>ADE20K mIoU</th>
+                                    <th>MS COCO<br><span class="metric-label">APb</span></th>
+                                    <th>ADE20K<br><span class="metric-label">mIoU</span></th>
                                     <th>FLOPs</th>
                                 </tr>
                             </thead>
@@ -384,7 +442,7 @@
                                     <td>76%</td>
                                 </tr>
                                 <tr class="ours-row">
-                                    <td>SimPrune</td>
+                                    <td>SimPrune (Ours)</td>
                                     <td>49.7</td>
                                     <td>34.0</td>
                                     <td>76%</td>
@@ -399,17 +457,14 @@
             <section class="section" id="visualization">
                 <div class="section-heading">
                     <h2>Pruning Visualization</h2>
-                    <p class="section-note">
-                        Black regions are pruned tokens. Compared with single-branch attention pruning, SimPrune
-                        produces more concentrated and symmetric pruning patterns across the two SSL branches.
-                    </p>
                 </div>
 
                 <figure class="paper-figure paper-figure-wide">
                     <img src="data/paper_assets/visual.png?v=20260517a" alt="Visualization comparing EViT attention-based pruning and SimPrune token pruning outcomes.">
                     <figcaption>
-                        SimPrune prunes matched token pairs so semantically corresponding regions across two augmented
-                        views are retained or removed together, reducing cross-view misalignment during SSL training.
+                        Black regions are pruned tokens. SimPrune prunes matched token pairs so semantically corresponding
+                        regions across two augmented views are retained or removed together, reducing cross-view
+                        misalignment during SSL training.
                     </figcaption>
                 </figure>
             </section>
